@@ -147,11 +147,11 @@ func writeByIoutil()  {
 }
 
 func main()  {
-	//readFile()
-	//readAllFiles()
+	readFromFile()
+	readAllFiles()
 	//readByBufio
 	//readByIoutil
 	//write()
 	//writeByBufio()
-	writeByIoutil()
+	//writeByIoutil()
 }
