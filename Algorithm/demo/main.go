@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"sort"
+	"strconv"
+)
 
 //栈相关
 func testStack()  {
@@ -41,16 +46,16 @@ func testQueue(){
 
 //字典
 func testDic()  {
-	//
+	//创建
 	m := make(map[string]int)
-	//
+	//设置kv
 	m["hello"] = 1
-	//
-	delete(m, "hello")
-	//
+	//遍历
 	for k, v := range m{
-		println(k, v)
+		fmt.Println(k, v)
 	}
+	//删除k
+	delete(m, "hello")
 }
 /*
 注意点
@@ -60,8 +65,81 @@ map 值都有默认值，可以直接操作默认值，如：m[age]++ 值由 0 �
 */
 
 //sort
+func testSort(){
+	//int排序
+	sI := []int{3, 2, 1, 6, 5, 4}
+	sort.Ints(sI)
+	fmt.Printf("Ints: %v\n", sI)
 
+	//字符串排序
+	sS := []string{"test", "cxk", "hello"}
+	sort.Strings(sS)
+	for _, value := range sS{
+		fmt.Printf("%s\t", value)
+	}
+
+	//自定义排序
+	sort.Slice(sI, func(i, j int)bool{return sI[i] < sI[j]})
+	fmt.Printf("Ints: %v\n", sI)
+}
+
+//math
+func testMath() {
+	//int32最大最小值
+	fmt.Println(math.MaxInt32)
+	fmt.Println(math.MinInt32)
+	//int64最大最小值（int默认是int64）
+	fmt.Println(math.MaxInt64)
+	fmt.Println(math.MinInt64)
+}
+
+//copy
+func testCopy()  {
+	//删除a[i](此处i为3)，可以用 copy 将i+1到末尾的值覆盖到i,然后末尾-1
+	a := []int{1, 2, 3, 4, 5, 6}
+	copy(a[3:], a[4:])
+	a = a[:len(a) - 1]
+	fmt.Println(a)
+
+	//make创建长度，则通过索引赋值
+	b := make([]int, 5)
+	b[4] = 1
+	fmt.Println(b)
+
+	//make长度为0，则通过append()赋值
+	c := make([]int, 0)
+	c = append(c, 1)
+	fmt.Println(c)
+}
+
+//skill
+func testSkill()  {
+	//byte转数字
+	s := "123456" //s[0]类型是byte
+	num := int(s[0] - '0') //1
+	str := string(s[0]) // "1"
+	b := byte(num + '0') // '1'
+	fmt.Printf("%d\t %s\t %c\n", num, str, b) //111
+
+	//字符串转数字
+	num,_ = strconv.Atoi(str)
+	str = strconv.Itoa(100)
+	fmt.Printf("%v\t%v\n", num, str)
+}
 
 func main()  {
-
+	//栈相关
+	testStack()
+	//队列相关
+	testQueue()
+	//字典相关
+	testDic()
+	//sort
+	testSort()
+	//math
+	testMath()
+	//copy
+	testCopy()
+	//skill
+	testSkill()
 }
