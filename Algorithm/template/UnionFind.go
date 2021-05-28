@@ -54,3 +54,5 @@ func (uf *UnionFind) Union(p, q int) {
 func (uf *UnionFind) TotalCount() int {
 	return uf.count
 }
+
+
