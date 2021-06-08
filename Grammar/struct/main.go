@@ -1,5 +1,43 @@
 package main
 
+import "fmt"
+
+func test() {
+	type student struct {
+		name string
+		age  int
+	}
+
+	m := make(map[string]*student)
+	stus := []student{
+		{name: "小王子", age: 18},
+		{name: "娜扎", age: 23},
+		{name: "大王八", age: 9000},
+	}
+	//fmt.Printf("test-stus: %p\n", &stus[0])
+	//fmt.Printf("test-stus: %p\n", &stus[1])
+
+	for _, stu := range stus {
+		m[stu.name] = &stu
+		fmt.Printf("test-stu: %p\n", &stu) //range 返回的是每个元素的副本，而不是直接返回对该元素的引用
+	}
+
+	for k, v := range m {
+		fmt.Println(k, "=>", v.name)
+	}
+	fmt.Printf("test: %v\n", m)
+
+	for i := 0; i < len(stus); i++ {
+		m[stus[i].name] = &stus[i]
+		fmt.Printf("test-stu: %p\n", &stus[i]) //获取真实地址直接取
+	}
+
+	for k, v := range m {
+		fmt.Println(k, "=>", v.name)
+	}
+	fmt.Printf("test: %v\n", m)
+}
+
 func main()  {
 	//自定义类型基础使用（大写加注释）
 
@@ -54,4 +92,6 @@ func main()  {
 	//JSON反序列化
 
 	//加tag
+
+	test()
 }
