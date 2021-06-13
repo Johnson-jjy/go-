@@ -1,0 +1,4 @@
+mode: set
+go-/Grammar/test/split.go:10.42,12.15 2 1
+go-/Grammar/test/split.go:17.2,19.12 3 1
+go-/Grammar/test/split.go:12.15,16.3 3 1
