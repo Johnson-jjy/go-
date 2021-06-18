@@ -2,23 +2,65 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
-//string类型
-//字符串就是一串固定长度的字符连接起来的字符序列。
-//Go 的字符串是由单个字节连接起来的。
-//Go 语言的字符串的字节使用 UTF-8 编码标识 Unicode 文本
+// 字符串比较
+func testCompare() {
+	a := "compareTest"
+	b := "CompareTEST"
+	c := "compare_test"
+	fmt.Println(strings.Compare(a, b))
+	fmt.Println(strings.Compare(b, b))
+	fmt.Println(strings.Compare(a, c))
+	fmt.Println(strings.EqualFold(a, b)) // 不区分大小写
+	fmt.Println(strings.EqualFold(a, a))
+	fmt.Println(strings.EqualFold(b, c))
+}
+
+// 是否存在某个字符或字串
+func testContain() {
+	a := "Go contain test"
+	fmt.Println(strings.Contains(a, "test"))
+	fmt.Println(strings.Contains(a, "cxk"))
+	fmt.Println(strings.Contains(a, "")) // true!
+	fmt.Println(strings.ContainsAny(a, "test"))
+	fmt.Println(strings.ContainsAny(a, "cxk"))
+	fmt.Println(strings.ContainsAny(a, "")) // false!
+	fmt.Println(strings.ContainsRune(a, 't'))
+	fmt.Println(strings.ContainsAny("", "")) //false!
+}
+
+// 字符串出现次数（字符串匹配）
+func testCount() {
+	fmt.Println(strings.Count("cheese", "e"))
+	fmt.Println(strings.Count("谷歌中国", "")) // 都是5！wht？！待补充！
+	fmt.Println(strings.Count("test", ""))
+	fmt.Println(strings.Count("ababa", "aba")) // 不重叠
+}
+
+// 字符串分割
+func testSplit()  {
+
+}
+
+// 字符串是否有某个前缀或后缀
+func testFix()  {
+	a := "TestPreFix"
+	b := "TestSufFix"
+	fmt.Println(strings.HasPrefix(a, "Test"))
+	fmt.Println(strings.HasPrefix(a, "test"))
+	fmt.Println(strings.HasPrefix(a, "")) // true!
+	fmt.Println(strings.HasSuffix(b, "Fix"))
+	fmt.Println(strings.HasSuffix(b, "fix"))
+	fmt.Println(strings.HasSuffix(b, "")) // true!
+}
+
 func main() {
+	//string类型
 	var address string = "hello"
 	fmt.Println(address)
 	fmt.Println(address[0]) //打印h的utf-8编码值
-	//注意事项
-	//1. Go语言的字符串的字节使用UTF-8编码标识Unicode文本，
-	//这样Golang统一使用UTF-8编码,中文 乱码问题不会再困扰程序员。
-	//2. 字符串一旦赋值了，字符串就不能修改了:在 Go 中字符串是不可变的。address[0] = 's' 会报错
-	//3. 字符串的两种表示形式
-	// 3.1 双引号, 会识别转义字符
-	// 3.2 反引号，以字符串的原生形式输出，包括换行和特殊字符，可以实现防止攻击、输出源代码等效果
 
 	str3 := `
 		func main() {
@@ -46,12 +88,25 @@ func main() {
 
 	//7. 分割 strings.Split
 
-	//8. 判断是否包含 strings.contains
+	// 字符串比较
+	fmt.Println("Test Compare")
+	testCompare()
 
-	//9. 前缀/后缀判断 strings.HasPreFix, strings.HasSuffix
+	// 字符串匹配
+	fmt.Println("Test Count")
+	testCount()
 
-	//10. 字串出现的位置 strings.Index(),strings.LastIndex()
+	// 判断是否包含 strings.contains
+	fmt.Println("Test Contains")
+	testContain()
 
-	//11. join操作 strings.Join(a[]string, sep string)
+	// 前缀/后缀判断 strings.HasPreFix, strings.HasSuffix
+	fmt.Println("Test Fix")
+	testFix()
 
+	// 字串出现的位置 strings.Index(),strings.LastIndex()
+
+	// join操作 strings.Join(a[]string, sep string)
+
+	//
 }
