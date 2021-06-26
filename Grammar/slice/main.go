@@ -88,6 +88,7 @@ func main()  {
 	fmt.Println("now! sa1:", sa1)
 
 	//扩容策略
+	fmt.Println("扩容策略")
 	var numSlice []int
 	for i := 0; i < 10; i++{
 		numSlice = append(numSlice, i)
