@@ -1,6 +1,37 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
+
+// 对扩容进行一些测试
+func testAppend() {
+	a := []byte{1, 0}
+	fmt.Printf("len of a is: %d,cap of a is:%d\n",len(a), cap(a))
+	a = append(a, 1, 1, 1)
+	fmt.Printf("len of a is: %d,cap of a is:%d\n",len(a), cap(a))
+
+	b := []int{23, 51}
+	b = append(b, 4, 5, 6)
+	fmt.Printf("len of b is: %d,cap of b is:%d\n",len(b), cap(b))
+
+	c := []int32{1, 23}
+	c = append(c, 2, 5, 6)
+	fmt.Printf("len of c is: %d,cap of c is:%d\n",len(c), cap(c))
+
+	type D struct{
+		age byte
+		name string
+	}
+	d := []D{
+		{1,"123"},
+		{2,"234"},
+	}
+
+	d = append(d,D{4,"456"},D{5,"567"},D{6,"678"})
+	fmt.Printf("len of d is: %d,cap of d is:%d\n",len(d), cap(d))
+}
 
 func main()  {
 	//切片的内部结构：地址+长度+容量
@@ -104,4 +135,84 @@ func main()  {
 
 	//sort_test_对数组var a = [...]int{3, 7, 8, 9, 1}进行排序
 
+
+	// 对扩容进行一些测试
+	testAppend()
+
+	// 对函数参数传入结构体做的一些测试
+	testSlicePointer()
+
+	// 线程安全相关的测试
+	//x := []string{"Start"} //初始化时，slice的容量为1
+	//wg := sync.WaitGroup{}
+	//wg.Add(2)
+	//go func() {
+	//	defer wg.Done()
+	//	y := append(x, "Hello", "World")
+	//	fmt.Printf("y slice len:%d, cap:%d, value:%+v\n", len(y), cap(y), y)
+	//}()
+	//
+	//go func() {
+	//	defer wg.Done()
+	//	z := append(x, "Java", "Golang", "React")
+	//	fmt.Printf("z slice len:%d, cap:%d, value:%+v\n", len(z), cap(z), z)
+	//}()
+	//wg.Wait()
+
+	x := make([]string, 0, 6)
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+	go func() {
+		defer wg.Done()
+		y := make([]string, 0, len(x) + 2) //分配新的内存
+		y = append(y, x...)
+		y = append(y, "Hello", "World", "!")
+		fmt.Printf("y slice len:%d, cap:%d, value:%+v\n", len(y), cap(y), y)
+	}()
+
+	go func() {
+		defer wg.Done()
+		z := make([]string, 0, len(x) + 2) //分配新的内存
+		z = append(z, x...)
+		z = append(z, "PHP", "Go", "Java")
+		fmt.Printf("z slice len:%d, cap:%d, value:%+v\n", len(z), cap(z), z)
+	}()
+	wg.Wait()
+}
+
+func testSlicePointer()  {
+	oldS := make([]int, 3, 4)
+	oldS[0] = 1
+	oldS[1] = 1
+	oldS[2] = 1
+
+	fmt.Printf("oldS1--ptr1:%p\n", &oldS)
+	fmt.Printf("oldS2--data-ptr2:%p\n", oldS)
+	newS := valuePass(oldS)
+	fmt.Printf("newS1--ptr1:%p\n", &newS)
+	fmt.Printf("newS2--data-ptr2:%p\n", newS)
+
+	fmt.Println(oldS)
+	fmt.Println(newS)
+
+	ptrPass(&oldS)
+	fmt.Println(oldS)
+}
+
+func valuePass(oldS []int) []int {
+	// 这里 oldS 虽然改变了，但并不会影响外层函数的 oldS
+	fmt.Printf("valuePass--ptr1:%p\n", &oldS)
+	fmt.Printf("valuePass--data-ptr2:%p\n", oldS)
+	oldS = append(oldS, 100)
+	oldS[1] = 2
+	return oldS
+}
+
+func ptrPass(old *[]int) {
+	// 会改变外层 old 本身
+	fmt.Printf("ptrPass--ptr1:%p\n", old)
+	fmt.Printf("ptrPass--data-ptr2:%p\n", *old)
+	*old = append(*old, 100)
+	(*old)[2] = 3 //注意优先级
+	return
 }
