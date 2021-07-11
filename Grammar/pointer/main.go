@@ -1,60 +1,9 @@
 package main
 
-import "fmt"
-
-//Definition for singly-linked list.
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func Init(v int, n *ListNode) *ListNode {
-	return &ListNode{
-		Val:  v,
-		Next: n,
-	}
-}
-
-func reverseList(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
-	}
-	prev := head
-	curr := head.Next
-	for curr != nil {
-		next := curr.Next
-		curr.Next = prev
-		if prev == head {
-			prev.Next = nil
-		}
-		prev = curr
-		curr = next
-	}
-	return prev
-}
-
-func main() {
-	e5 := Init(5, nil)
-	e4 := Init(4, e5)
-	e3 := Init(3, e4)
-	e2 := Init(2, e3)
-	e1 := Init(1, e2)
-
-	for cur := e1; cur != nil; cur = cur.Next {
-		fmt.Printf("Before:%v\n", cur.Val)
-	}
-
-	res := reverseList(e1)
-	fmt.Printf("test head:%v\n", res.Val)
-
-	for cur := res; cur != nil; cur = cur.Next {
-		fmt.Printf("After:%v\n", cur.Val)
-	}
-
-	var test int // 默认为0
-	var e6 *ListNode //默认为nil
-	fmt.Printf("test:%v\t%v\n", test, e6)
-}
+import (
+	"fmt"
+	"unsafe"
+)
 
 //func main()  {
 //	//指针的常见使用（两符号）
@@ -90,3 +39,25 @@ func main() {
 //	//类型别名
 //
 //}
+
+type testStruct struct {
+	testString string
+	testInt int64
+	testFloat float64
+}
+
+func main()  {
+	var a *int64 = new(int64)
+	var b *float64 = new(float64)
+	var c *testStruct = new(testStruct)
+	var d *byte
+	var e int32
+	var f *int32
+
+	fmt.Println(unsafe.Sizeof(a))
+	fmt.Println(unsafe.Sizeof(b))
+	fmt.Println(unsafe.Sizeof(c))
+	fmt.Println(unsafe.Sizeof(d))
+	fmt.Println(unsafe.Sizeof(e))
+	fmt.Println(unsafe.Sizeof(f))
+}

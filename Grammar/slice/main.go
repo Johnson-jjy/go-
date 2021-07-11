@@ -210,6 +210,7 @@ func valuePass(oldS []int) []int {
 
 func ptrPass(old *[]int) {
 	// 会改变外层 old 本身
+	fmt.Printf("ptrPass--ptr0:%p\n", &old)
 	fmt.Printf("ptrPass--ptr1:%p\n", old)
 	fmt.Printf("ptrPass--data-ptr2:%p\n", *old)
 	*old = append(*old, 100)

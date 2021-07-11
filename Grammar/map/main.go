@@ -78,7 +78,7 @@ func main()  {
 	}
 
 
-	//值为切片类型的map
+	//值为切片类型的map -> 注意，切片不能作为键
 	var sliceMap = make(map[string][]string, 3)
 	fmt.Println(sliceMap)
 	fmt.Println("After Init")
