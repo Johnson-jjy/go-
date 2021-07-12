@@ -60,49 +60,56 @@ func main() {
 	//string类型
 	var address string = "hello"
 	fmt.Println(address)
-	fmt.Println(address[0]) //打印h的utf-8编码值
+	fmt.Println(address[0], len(address)) //打印h的utf-8编码值
+	var s = "我想看看这个输出"
+	for i := 0; i < len(address); i++ {
+		fmt.Printf("1:%v\n",address[i])
+	}
+	for i := 0; i < len(s); i++ {
+		fmt.Printf("2:%v\n", s[i])
+	}
 
-	str3 := `
-		func main() {
-			fmt.Println(address)
-		}
-	`
-	fmt.Println(str3)
+	//str3 := `
+	//	func main() {
+	//		fmt.Println(address)
+	//	}
+
+	//fmt.Println(str3)
 	//4. 字符串拼接方式 或 fmt.Sprintf
-	str4 := "xiao"
-	str4 += "xiao"
-	fmt.Println(str4)
-	newstr4 := fmt.Sprintf("%s%s", str4, "new")
-	fmt.Println(newstr4)
+	//str4 := "xiao"
+	//str4 += "xiao"
+	//fmt.Println(str4)
+	//newstr4 := fmt.Sprintf("%s%s", str4, "new")
+	//fmt.Println(newstr4)
 
 	//5. 当一行字符串太长时，需要使用到多行字符串，可以如下处理
-	str5 := "adadas" + "adsadasdd" +
-		"sdfsfsdf" + "dfdfsdf" +
-		"dsfsfsdf"
-
-	fmt.Println(str5)
+	//str5 := "adadas" + "adsadasdd" +
+	//	"sdfsfsdf" + "dfdfsdf" +
+	//	"dsfsfsdf"
+	//
+	//fmt.Println(str5)
 
 	//6. 转义 \
 	//eg：打印一个Windows平台下的文件路径
-	fmt.Println("str := \"c:\\Code\\test\\go.exe\"")
+	//fmt.Println("str := \"c:\\Code\\test\\go.exe\"")
 
 	//7. 分割 strings.Split
 
 	// 字符串比较
 	fmt.Println("Test Compare")
-	testCompare()
+	//testCompare()
 
 	// 字符串匹配
 	fmt.Println("Test Count")
-	testCount()
+	//testCount()
 
 	// 判断是否包含 strings.contains
 	fmt.Println("Test Contains")
-	testContain()
+	//testContain()
 
 	// 前缀/后缀判断 strings.HasPreFix, strings.HasSuffix
 	fmt.Println("Test Fix")
-	testFix()
+	//testFix()
 
 	// 字串出现的位置 strings.Index(),strings.LastIndex()
 
